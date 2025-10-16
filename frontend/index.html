@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Deployment System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">🚗 Driver Deployment System</span>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Табы -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="computers-tab" data-bs-toggle="tab" 
+                        data-bs-target="#computers" type="button" role="tab">
+                    💻 Компьютеры
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="drivers-tab" data-bs-toggle="tab" 
+                        data-bs-target="#drivers" type="button" role="tab">
+                    📦 Драйверы
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="upload-tab" data-bs-toggle="tab" 
+                        data-bs-target="#upload" type="button" role="tab">
+                    ⬆️ Загрузить драйвер
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="status-tab" data-bs-toggle="tab" 
+                        data-bs-target="#status" type="button" role="tab">
+                    📊 Статус системы
+                </button>
+            </li>
+        </ul>
+
+        <!-- Контент табов -->
+        <div class="tab-content mt-3" id="myTabContent">
+            
+            <!-- Вкладка компьютеров -->
+            <div class="tab-pane fade show active" id="computers" role="tabpanel">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Зарегистрированные компьютеры</h4>
+                    <button class="btn btn-primary" onclick="loadComputers()">
+                        🔄 Обновить
+                    </button>
+                </div>
+                <div id="computers-list">
+                    <div class="text-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Загрузка...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Вкладка драйверов -->
+            <div class="tab-pane fade" id="drivers" role="tabpanel">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Доступные драйверы</h4>
+                    <button class="btn btn-primary" onclick="loadDrivers()">
+                        🔄 Обновить
+                    </button>
+                </div>
+                <div id="drivers-list">
+                    <div class="text-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Загрузка...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Вкладка загрузки -->
+            <div class="tab-pane fade" id="upload" role="tabpanel">
+                <h4>Загрузка нового драйвера</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <form id="upload-form" onsubmit="uploadDriver(event)">
+                            <div class="mb-3">
+                                <label class="form-label">Файл драйвера</label>
+                                <input type="file" class="form-control" id="driver-file" required 
+                                       accept=".exe,.msi,.zip,.inf,.cab">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Модель оборудования</label>
+                                        <input type="text" class="form-control" id="model" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Версия драйвера</label>
+                                        <input type="text" class="form-control" id="version" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">📤 Загрузить драйвер</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Вкладка статуса -->
+            <div class="tab-pane fade" id="status" role="tabpanel">
+                <h4>Статус системы</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div id="status-info">
+                            <div class="text-center">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Загрузка...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Уведомления -->
+    <div id="alert-container" class="position-fixed top-0 end-0 p-3" style="z-index: 1050"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Наш JS -->
+    <script src="app.js"></script>
+</body>
+</html>
